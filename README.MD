@@ -5,12 +5,14 @@
 <br><br>
 
 ### 사용 기술스택
-> java 11, Spring Boot 2.7.15, gradle, jar
-> jpa, lombok
+> java 11, Spring Boot 2.7.15, spring security, gradle
+> jpa, lombok, oauth2, h2
+> AWS
 
 <br>
 
 - ✔ 테스트코드 작성하기
+
 
 <br>
 
