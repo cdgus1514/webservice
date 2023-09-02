@@ -1,5 +1,6 @@
 package dh.example.webservice.web;
 
+import dh.example.webservice.config.auth.LoginUser;
 import dh.example.webservice.config.auth.dto.SessionUser;
 import dh.example.webservice.service.posts.PostsService;
 import dh.example.webservice.web.dto.PostsResponseDto;
@@ -19,11 +20,10 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        // 로그인 성공 시 세션에 저장
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        // 로그인 성공 시 세션에 저장 (어노테이션으로 처리)
 
         if(user != null) {
             model.addAttribute("userName", user.getName());
