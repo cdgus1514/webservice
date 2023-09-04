@@ -23,6 +23,6 @@ class IndexControllerTest {
         
         
         // then
-        Assertions.assertThat(body).contains("Web Service Start!");
+        Assertions.assertThat(body).contains("스프링부트 웹서비스");
     }
 }
