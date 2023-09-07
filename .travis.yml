@@ -16,6 +16,8 @@ script: './gradlew clean build'
 
 before_install:
   - chmod +x gradlew
+
+before_deploy:
   - zip -r webservice *
   - mkdir -p deploy
   - mv webservice.zip deploy/webservice.zip
@@ -30,6 +32,17 @@ deploy:
     acl: private
     local_dir: deploy
     wait-until-deploy: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: webservice-test1-build
+    key: webservice.zip
+    bundle-type: zip
+    application: webservice
+    deployment_group: webservice-group
+    region: us-east-1
+    wait-until-deployed: true
 
 
 # CI 실행 완료 시 메일전송
