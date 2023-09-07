@@ -12,9 +12,24 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
+script: './gradlew clean build'
+
 before_install:
   - chmod +x gradlew
-script: './gradlew clean build'
+  - zip -r webservice *
+  - mkdir -p deploy
+  - mv webservice.zip deploy/webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: webservice-test1-build
+    region: us-east-1
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deploy: true
 
 
 # CI 실행 완료 시 메일전송
